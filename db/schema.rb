@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_054051) do
 
   create_table "events", force: :cascade do |t|
     t.text "description"
-    t.json "location"
+    t.json "location", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "author_id"
@@ -37,14 +37,14 @@ ActiveRecord::Schema.define(version: 2019_06_13_054051) do
 
   create_table "orgs", force: :cascade do |t|
     t.string "name"
-    t.json "org_data"
+    t.json "org_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.json "location_data"
+    t.json "location_data", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
