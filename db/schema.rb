@@ -17,13 +17,11 @@ ActiveRecord::Schema.define(version: 2019_06_13_112750) do
 
   create_table "events", force: :cascade do |t|
     t.text "description"
-    t.json "location", default: {}, null: false
+    t.jsonb "body", default: {}, null: false
     t.bigint "author_id"
-    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_events_on_author_id"
-    t.index ["project_id"], name: "index_events_on_project_id"
   end
 
   create_table "org_projects", force: :cascade do |t|
@@ -37,14 +35,14 @@ ActiveRecord::Schema.define(version: 2019_06_13_112750) do
 
   create_table "orgs", force: :cascade do |t|
     t.string "name"
-    t.json "org_data", default: {}, null: false
+    t.jsonb "body", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.json "location_data", default: {}, null: false
+    t.jsonb "body", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -75,8 +73,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_112750) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "events", "projects"
-  add_foreign_key "events", "users", column: "author_id"
+  add_foreign_key "events", "user_org_projects", column: "author_id"
   add_foreign_key "org_projects", "orgs"
   add_foreign_key "org_projects", "projects"
   add_foreign_key "user_org_projects", "org_projects"
