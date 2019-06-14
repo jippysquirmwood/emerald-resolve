@@ -7,4 +7,7 @@ class OrgProject < ApplicationRecord
   has_many :events, through: :user_org_projects
   # to users
   has_many :users, through: :user_org_projects
+
+  # validations
+  validates :project, uniqueness: { scope: :org }
 end

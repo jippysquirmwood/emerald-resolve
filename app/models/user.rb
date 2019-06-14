@@ -13,4 +13,11 @@ class User < ApplicationRecord
   has_many :orgs, through: :org_projects
   # to projects
   has_many :projects, through: :org_projects
+
+  # validations
+  validates :email, presence: true, uniqueness: true
+  validates_format_of :email, with: Devise.email_regexp
+  validates :username, presence: true, uniqueness: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 end

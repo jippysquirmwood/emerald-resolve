@@ -7,4 +7,8 @@ class Project < ApplicationRecord
   has_many :users, through: :user_org_projects
   # to orgs
   has_many :orgs, through: :org_projects
+
+  # validations
+  validates :name, presence: true
+  validates :body, presence: true
 end
