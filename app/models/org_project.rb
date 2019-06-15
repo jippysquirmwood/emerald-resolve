@@ -1,6 +1,6 @@
 class OrgProject < ApplicationRecord
-  belongs_to :project_id
-  belongs_to :org_id
+  belongs_to :project
+  belongs_to :org
 
   has_many :user_org_projects, dependent: :destroy
   # to events
