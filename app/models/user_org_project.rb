@@ -7,5 +7,4 @@ class UserOrgProject < ApplicationRecord
   # validations
   validates :user, uniqueness: { scope: :org_project }
   validates :start_date, presence: true
-  validates :end_date
 end
