@@ -282,10 +282,17 @@ puts "---------------------------------"
 
 events_attributes = [
   {
-    description: "this thing is oh so wrong",
+    description: "ev1 - this thing is oh so wrong",
     author_id: UserOrgProject.first.user.id,
     body: {
       info: "site entrance"
+    }
+  },
+  {
+    description: "ev2 - what about this one?",
+    author_id: UserOrgProject.last.user.id,
+    body: {
+      info: "fantastic job they have done here"
     }
   }
 ]

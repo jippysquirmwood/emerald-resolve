@@ -4,11 +4,13 @@ class CreateUserOrgProjects < ActiveRecord::Migration[5.2]
       t.datetime :start_date
       t.datetime :end_date
       t.references :user
+      t.references :author
       t.references :org_project
 
       t.timestamps
     end
     add_foreign_key :user_org_projects, :users, column: :user_id, primary_key: :id
+    add_foreign_key :user_org_projects, :users, column: :author_id, primary_key: :id
     add_foreign_key :user_org_projects, :org_projects, column: :org_project_id, primary_key: :id
   end
 end

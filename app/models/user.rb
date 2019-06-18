@@ -6,7 +6,8 @@ class User < ApplicationRecord
 
   has_many :user_org_projects, dependent: :nullify
   # to events
-  has_many :authored_events, through: :user_org_projects, source: :events
+  has_many :authored_events, through: :user_org_projects, source: :authored_events
+  # has_many :base_authored_events, through: :user_org_projects, source: :authored_events, foreign_key: :author_id
   # to org_projects
   has_many :org_projects, through: :user_org_projects
   # to orgs
