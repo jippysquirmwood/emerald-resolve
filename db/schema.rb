@@ -10,10 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_11_103840) do
+ActiveRecord::Schema.define(version: 2019_06_13_112750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.text "description"
+    t.jsonb "body", default: {}, null: false
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_events_on_author_id"
+  end
+
+  create_table "org_projects", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "org_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_org_projects_on_org_id"
+    t.index ["project_id"], name: "index_org_projects_on_project_id"
+  end
+
+  create_table "orgs", force: :cascade do |t|
+    t.string "name"
+    t.jsonb "body", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.jsonb "body", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_org_projects", force: :cascade do |t|
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.bigint "user_id"
+    t.bigint "org_project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_project_id"], name: "index_user_org_projects_on_org_project_id"
+    t.index ["user_id"], name: "index_user_org_projects_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -30,4 +73,9 @@ ActiveRecord::Schema.define(version: 2019_06_11_103840) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "events", "user_org_projects", column: "author_id"
+  add_foreign_key "org_projects", "orgs"
+  add_foreign_key "org_projects", "projects"
+  add_foreign_key "user_org_projects", "org_projects"
+  add_foreign_key "user_org_projects", "users"
 end
