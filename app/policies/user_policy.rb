@@ -1,7 +1,25 @@
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      if user.admin
+        scope.all
+      end
     end
+  end
+
+  def show?
+    true
+  end
+
+  def edit?
+    record == user
+  end
+
+  def update?
+    edit?
+  end
+
+  def destroy?
+    user.admin
   end
 end
