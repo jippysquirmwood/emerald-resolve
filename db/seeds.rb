@@ -2,6 +2,7 @@ User.destroy_all
 Project.destroy_all
 Org.destroy_all
 OrgProject.destroy_all
+UserOrgProject.destroy_all
 Event.destroy_all
 
 users_attributes = [
